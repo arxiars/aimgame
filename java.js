@@ -1,3 +1,10 @@
+// elements
+let gameFrame = document.getElementById("gameFrame")
+let titleText = document.getElementById("titleText")
+let startText = document.getElementById("startText")
+let levelText = document.getElementById("levelText")
+let livesText = document.getElementById("livesText")
+
 let score = 0
 let level = 1
 let lives = 3
@@ -16,6 +23,8 @@ document.addEventListener("click", (event) => {
             flash(document.body, "rgba(255, 194, 194, 0.42)", "rgb(255, 255, 255)")
         } else if (element.id == "btn") {
             console.log("HIT")
+            element.remove()
+            createTarget()
         }
     } else if (gameState == "titleScreen") {
         if (element.id == "gameFrame") {
@@ -36,7 +45,7 @@ function flash(element, flashColor, ogColor) {
 
 function endGame() {
     gameState = "gameOver"
-    // document.getElementById("timerText").textContent = "GAME OVER"
+    document.getElementById("scoreText").textContent = "GAME OVER"
     console.log("GG")
 }
 
@@ -56,22 +65,30 @@ function updScore() {
     document.getElementById("scoreText").textContent = targetsHit + " / " + requiredHits
 }
 
-function updPos() {
+function updPos(target) {
     if (gameState == "ingame") {
-        let btn = document.getElementById("btn")
-        let gameFrame = document.getElementById("gameFrame")
         let xPos = Math.floor(Math.random() * 90) + 5
         let yPos = Math.floor(Math.random() * 90) + 5
-        btn.style.left = xPos + "%"
-        btn.style.top = yPos + "%"
-        console.log(btn.style.left, btn.style.top)
+        target.style.left = xPos + "%"
+        target.style.top = yPos + "%"
+
+        console.log("POSITION:", target.style.left, btn.style.top)
+
         updScore()
-        flash(btn, "rgb(146, 228, 161)", "rgb(255, 255, 255)")
+        flash(target, "rgb(146, 228, 161)", "rgb(255, 255, 255)")
     }
 }
 
 function createTarget() {
-    
+    if (gameState == "ingame") {
+        let target = document.createElement("button")
+        target.id = "btn"
+
+        gameFrame.append(target)
+        console.log("TARGET CREATED")
+
+        updPos(target)
+    }
 }
 
 // function startTimer() {
@@ -95,12 +112,10 @@ function createTarget() {
 
 function start() {
     console.log("STARTED")
-    document.getElementById("startText").style.visibility = "hidden"
-    document.getElementById("btn").style.visibility = "visible"
-    document.getElementById("titleText").style.visibility = "hidden"
-    document.getElementById("levelText").innerHTML = "LEVEL " + level
-    document.getElementById("livesText").innerHTML = "LIVES: " + lives
-    // startTimer()
+    titleText.style.visibility = "hidden"
+    startText.style.visibility = "hidden"
+    levelText.innerHTML = "LEVEL " + level
+    livesText.innerHTML = "LIVES: " + lives
     gameState = "ingame"
-    updPos()
+    createTarget()
 }
