@@ -33,6 +33,7 @@ button {
     transform: translate(-50%, -50%);
     color: black;
     font-size: 65px;
+    user-select: none;
 }
 
 #startText {
@@ -46,6 +47,7 @@ button {
     background: none;
     border-radius: 0;
     color: black;
+    user-select: none;
 }
 
 #scoreText {
@@ -88,6 +90,33 @@ button {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+#shopFrame {
+    border: 5px solid black;
+    height: auto;
+    width: 30%;
+    margin: auto;
+    aspect-ratio: 1 / 1 ;
+    background-color: rgb(128, 128, 128);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+#clearText {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    visibility: hidden;
+}
+
+div {
+    border: 5px solid black;
 }
 
 #bg {
