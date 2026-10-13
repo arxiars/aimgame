@@ -1,16 +1,16 @@
 // elements
-let gameFrame = document.getElementById("gameFrame")
-let titleText = document.getElementById("titleText")
-let startText = document.getElementById("startText")
-let levelText = document.getElementById("levelText")
-let livesText = document.getElementById("livesText")
+const gameFrame = document.getElementById("gameFrame")
+const shopFrame = document.getElementById("shopFrame")
+const titleText = document.getElementById("titleText")
+const startText = document.getElementById("startText")
+const levelText = document.getElementById("levelText")
+const livesText = document.getElementById("livesText")
 
 let score = 0
 let level = 1
 let lives = 3
-
 let targetsHit = 0
-let requiredHits = level * 30
+let requiredHits = level * 5
 
 let gameState = "titleScreen"
 
@@ -24,12 +24,11 @@ document.addEventListener("click", (event) => {
         } else if (element.id == "btn") {
             console.log("HIT")
             element.remove()
+            updScore()
             createTarget()
         }
     } else if (gameState == "titleScreen") {
-        if (element.id == "gameFrame") {
-            start()
-        }
+        start()
     }
 });
 
@@ -59,22 +58,58 @@ function updLives() {
     }
 }
 
+function displaySelections() {
+    shopFrame.style.visibility = "visible"
+
+    let selectedThreats = []
+    function getRandom() {
+        let randomThreat = threats[Math.floor(Math.random() * threats.length)]
+        if (!selectedThreats.includes(randomThreat)) {
+            selectedThreats.push(randomThreat)
+        }
+    }
+    while (selectedThreats.length < 3) {
+        getRandom()
+    }
+
+    for (let i = 0; i < selectedThreats.length; i++) {
+        const optionBtn =  document.getElementById(`choice${i + 1}`)
+        optionBtn.textContent = selectedThreats[i]
+        optionBtn.addEventListener("click", () => onSelect(selectedThreats[i]))
+    }
+    console.log(selectedThreats)
+}
+
+function intermission() {
+    scoreText.textContent = "INTERMISSION - CHOOSE A THREAT"
+    score = 0
+    gameFrame.style.visibility = "hidden"
+    document.getElementById("clearText").style.visibility = "hidden"
+    displaySelections()
+    console.log("INTERMISSION")
+}
+
 function updScore() {
     score += 1
     targetsHit++
     document.getElementById("scoreText").textContent = targetsHit + " / " + requiredHits
+
+    if (score >= requiredHits) {
+        console.log("REQUIRED HITS CLEARED!")
+        gameState = "intermission"
+        document.getElementById("clearText").style.visibility = "visible"
+        setTimeout(intermission, 1000)
+    }
 }
 
 function updPos(target) {
     if (gameState == "ingame") {
-        let xPos = Math.floor(Math.random() * 90) + 5
-        let yPos = Math.floor(Math.random() * 90) + 5
+        let xPos = Math.floor(Math.random() * 100)
+        let yPos = Math.floor(Math.random() * 100)
         target.style.left = xPos + "%"
         target.style.top = yPos + "%"
 
         console.log("POSITION:", target.style.left, btn.style.top)
-
-        updScore()
         flash(target, "rgb(146, 228, 161)", "rgb(255, 255, 255)")
     }
 }
@@ -114,8 +149,10 @@ function start() {
     console.log("STARTED")
     titleText.style.visibility = "hidden"
     startText.style.visibility = "hidden"
-    levelText.innerHTML = "LEVEL " + level
-    livesText.innerHTML = "LIVES: " + lives
+    gameFrame.style.visibility = "visible"
+    levelText.textContent = "LEVEL " + level
+    livesText.textContent = "LIVES: " + lives
+    scoreText.textContent = "0 / " + requiredHits
     gameState = "ingame"
     createTarget()
 }
