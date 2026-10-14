@@ -6,11 +6,11 @@ const startText = document.getElementById("startText")
 const levelText = document.getElementById("levelText")
 const livesText = document.getElementById("livesText")
 
-let score = 0
 let level = 1
 let lives = 3
 let targetsHit = 0
-let requiredHits = level * 5
+let baseRequirement = 20
+let requiredHits = level * baseRequirement
 
 let gameState = "titleScreen"
 
@@ -28,7 +28,7 @@ document.addEventListener("click", (event) => {
             createTarget()
         }
     } else if (gameState == "titleScreen") {
-        start()
+        startRound()
     }
 });
 
@@ -44,14 +44,14 @@ function flash(element, flashColor, ogColor) {
 
 function endGame() {
     gameState = "gameOver"
-    document.getElementById("scoreText").textContent = "GAME OVER"
+    scoreText.textContent = "GAME OVER"
     console.log("GG")
 }
 
 function updLives() {
     if (gameState == "ingame") {
         lives--
-        document.getElementById("livesText").textContent = "Lives: " + lives
+        livesText.textContent = "Lives: " + lives
         if (lives <= 0) {
             endGame()
         }
@@ -74,15 +74,15 @@ function displaySelections() {
 
     for (let i = 0; i < selectedThreats.length; i++) {
         const optionBtn =  document.getElementById(`choice${i + 1}`)
-        optionBtn.textContent = selectedThreats[i]
-        optionBtn.addEventListener("click", () => onSelect(selectedThreats[i]))
+        optionBtn.textContent = selectedThreats[i].name
+        optionBtn.addEventListener("click", () => onSelect(selectedThreats[i])) // function in threats.js
     }
     console.log(selectedThreats)
 }
 
 function intermission() {
-    scoreText.textContent = "INTERMISSION - CHOOSE A THREAT"
-    score = 0
+    scoreText.textContent = "INTERMISSION"
+    targetsHit = 0
     gameFrame.style.visibility = "hidden"
     document.getElementById("clearText").style.visibility = "hidden"
     displaySelections()
@@ -90,11 +90,10 @@ function intermission() {
 }
 
 function updScore() {
-    score += 1
     targetsHit++
     document.getElementById("scoreText").textContent = targetsHit + " / " + requiredHits
 
-    if (score >= requiredHits) {
+    if (targetsHit >= requiredHits) {
         console.log("REQUIRED HITS CLEARED!")
         gameState = "intermission"
         document.getElementById("clearText").style.visibility = "visible"
@@ -145,14 +144,21 @@ function createTarget() {
 //     }
 // }
 
-function start() {
+function clearTargets() {
+    const targets = document.querySelectorAll("#btn")
+    targets.forEach(element => element.remove())
+}
+
+function startRound() {
     console.log("STARTED")
     titleText.style.visibility = "hidden"
     startText.style.visibility = "hidden"
     gameFrame.style.visibility = "visible"
+    shopFrame.style.visibility = "hidden"
     levelText.textContent = "LEVEL " + level
     livesText.textContent = "LIVES: " + lives
     scoreText.textContent = "0 / " + requiredHits
     gameState = "ingame"
+    clearTargets()
     createTarget()
 }
