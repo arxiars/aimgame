@@ -9,7 +9,7 @@ const livesText = document.getElementById("livesText")
 let level = 1
 let lives = 3
 let targetsHit = 0
-let baseRequirement = 20
+let baseRequirement = 5
 let requiredHits = level * baseRequirement
 
 let gameState = "titleScreen"
@@ -75,7 +75,7 @@ function displaySelections() {
     for (let i = 0; i < selectedThreats.length; i++) {
         const optionBtn =  document.getElementById(`choice${i + 1}`)
         optionBtn.textContent = selectedThreats[i].name
-        optionBtn.addEventListener("click", () => onSelect(selectedThreats[i])) // function in threats.js
+        optionBtn.onclick = () => onSelect(selectedThreats[i]) // onSelect is a function in threats.js
     }
     console.log(selectedThreats)
 }
