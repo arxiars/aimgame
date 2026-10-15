@@ -31,13 +31,26 @@ function activateThreats() {
 
                     gameFrame.append(spikeball);
 
-                    setTimeout(spikeballs, 1000);
+                    setTimeout(spikeballs, 2000);
+
+                    // spikeball.onmouseenter = function() {
+                    //     console.log("HIT")
+                    //     updLives()
+                    // }
                 };
             };
             spikeballs();
         };
     };
 };
+
+let hitboxes = document.querySelectorAll(".hitbox")
+hitboxes.forEach(element => {
+    element.addEventListener("mouseenter", (event) => {
+        console.log("HIT")
+        endGame()
+    })
+})
 
 function onSelect(threat) {
     threatsInRound.push(threat);
