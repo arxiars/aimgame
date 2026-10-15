@@ -12,3 +12,9 @@
 //     requestAnimationFrame(updateLoop)
 // }
 // requestAnimationFrame(updateLoop)
+
+document.querySelectorAll(".hitbox").forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+        console.log("AHHH")
+    })
+});
