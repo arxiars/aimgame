@@ -31,26 +31,18 @@ function activateThreats() {
 
                     gameFrame.append(spikeball);
 
-                    setTimeout(spikeballs, 2000);
+                    setTimeout(spikeballs, 1500);
 
-                    // spikeball.onmouseenter = function() {
-                    //     console.log("HIT")
-                    //     updLives()
-                    // }
+                    spikeball.onmouseenter = function() {
+                        console.log("HIT")
+                        updLives()
+                    }
                 };
             };
             spikeballs();
         };
     };
 };
-
-let hitboxes = document.querySelectorAll(".hitbox")
-hitboxes.forEach(element => {
-    element.addEventListener("mouseenter", (event) => {
-        console.log("HIT")
-        endGame()
-    })
-})
 
 function onSelect(threat) {
     threatsInRound.push(threat);
@@ -60,6 +52,7 @@ function onSelect(threat) {
     level++;
     targetsHit = 0;
     requiredHits = level * baseRequirement;
+    gameFrame.innerHTML = ""
     startRound();
 
     activateThreats();
