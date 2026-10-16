@@ -21,22 +21,34 @@ function activateThreats() {
                     spikeball.className = "hitbox";
                     spikeball.id = "spikeball"
                     spikeball.style.backgroundColor = "red";
-                    spikeball.style.width = "80px";
-                    spikeball.style.height = "80px";
+                    spikeball.style.width = "0px";
+                    spikeball.style.height = "0px";
 
-                    let xPos = Math.floor(Math.random() * 100)
-                    let yPos = Math.floor(Math.random() * 100)
-                    spikeball.style.left = xPos + "%"
-                    spikeball.style.top = yPos + "%"
+                    let xPos = Math.floor(Math.random() * 100);
+                    let yPos = Math.floor(Math.random() * 100);
+                    spikeball.style.left = xPos + "%";
+                    spikeball.style.top = yPos + "%";
 
                     gameFrame.append(spikeball);
 
-                    setTimeout(spikeballs, 1500);
+                    function changeSize() {
+                        setTimeout(() => {
+                        spikeball.style.width = "80px";
+                        spikeball.style.height = "80px";
+                        }, 20);
+                        setTimeout(() => {
+                            spikeball.style.width = "0px";
+                            spikeball.style.height = "0px";
+                        }, 2750);
+                    };
+                    changeSize();
+                    
+                    setTimeout(spikeballs, 4000);
 
                     spikeball.onmouseenter = function() {
-                        console.log("HIT")
-                        updLives()
-                    }
+                        console.log("HIT");
+                        updLives();
+                    };
                 };
             };
             spikeballs();
@@ -52,7 +64,7 @@ function onSelect(threat) {
     level++;
     targetsHit = 0;
     requiredHits = level * baseRequirement;
-    gameFrame.innerHTML = ""
+    gameFrame.innerHTML = "";
     startRound();
 
     activateThreats();
