@@ -83,7 +83,7 @@ button {
     height: auto;
     width: 30%;
     margin: auto;
-    aspect-ratio: 1 / 1 ;
+    aspect-ratio: 1 / 1;
     /* background-color: rgb(128, 128, 128); */
     position: absolute;
     top: 50%;
@@ -97,7 +97,7 @@ button {
     height: auto;
     width: 30%;
     margin: auto;
-    aspect-ratio: 1 / 1 ;
+    aspect-ratio: 1 / 1;
     background-color: rgb(128, 128, 128);
     position: absolute;
     top: 50%;
@@ -114,16 +114,49 @@ button {
     visibility: hidden;
 }
 
-div {
+/* div {
     border: 5px solid black;
-}
+} */
+
+/* SPIKEBALL */
 
 #spikeball {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    transition: width 4s, height 4s;
+    transition: width 2s, height 2s;
+    border-radius: 9999px;
+}
+
+#spikeballCore, #spikeballSpikes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    width: 120%;
+    pointer-events: none;
+}
+
+#spikeballCore {
+    animation: coreSpin 12s linear infinite;
+    transform-origin: center center;
+}
+
+#spikeballSpikes {
+    animation: spikesSpin 4s linear infinite;
+    transform-origin: center center;
+}
+
+@keyframes coreSpin {
+    from {transform: translate(-50%, -50%) rotate(0deg);}
+    to {transform: translate(-50%, -50%) rotate(360deg);}
+}
+
+@keyframes spikesSpin {
+    from {transform: translate(-50%, -50%) rotate(0deg);}
+    to {transform: translate(-50%, -50%) rotate(-360deg);}
 }
 
 #bg {
