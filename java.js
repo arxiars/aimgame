@@ -20,7 +20,6 @@ document.addEventListener("click", (event) => {
         if (element.id == "gameFrame") {
             console.log("MISS");
             updLives();
-            flash(document.body, "rgba(255, 194, 194, 0.42)", "rgb(255, 255, 255)");
         } else if (element.id == "btn") {
             console.log("HIT");
             element.remove();
@@ -52,6 +51,7 @@ function updLives() {
     if (gameState == "ingame") {
         lives--;
         livesText.textContent = "Lives: " + lives;
+        flash(document.body, "rgba(255, 194, 194, 0.42)", "rgb(255, 255, 255)");
         if (lives <= 0) {
             endGame();
         };
