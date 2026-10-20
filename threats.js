@@ -6,54 +6,70 @@ const threats = [
 
 let threatsInRound = [];
 
+function detectHitboxes() {
+    const hitboxes = document.querySelectorAll(".hitbox");
+    hitboxes.forEach(element => {
+        element.onmouseenter = function() {
+            console.log("HIT");
+            updLives();
+        };
+    });
+};
+
 function activateThreats() {
     for (let i = 0; i < threatsInRound.length; i++) {
+        if (gameState !== "ingame") {
+            return;
+        };
+
+        // SPIKEBALL
         if (threatsInRound[i].threatId === 1) {
-            // SPIKEBALL
-            let spikeball = null;
-            function spikeballs() {
-                if (gameState === "ingame") {
-                    console.log("SPIKEBALL GO");
-                    if (spikeball) {
-                        spikeball.remove();
-                    };
-                    spikeball = document.createElement("div");
-                    spikeball.className = "hitbox";
-                    spikeball.id = "spikeball"
-                    spikeball.style.backgroundColor = "red";
+            console.log("SPIKEBALL GO");
+            
+            let spikeball = document.createElement("div");
+            spikeball.className = "hitbox";
+            spikeball.id = "spikeball";
+            spikeball.style.width = "0px";
+            spikeball.style.height = "0px";
+
+            let spikes = document.createElement("img");
+            spikes.src = "assets/spikeball_spikes.png";
+            spikes.id = "spikeballSpikes";
+            spikes.style.zIndex = 0;
+
+            let core = document.createElement("img");
+            core.src = "assets/spikeball_core.png";
+            core.id = "spikeballCore";
+            core.style.zIndex = 1;
+
+            spikeball.append(core);
+            spikeball.append(spikes);
+            gameFrame.append(spikeball);
+
+            function changePos() {
+                let xPos = Math.floor(Math.random() * 100);
+                let yPos = Math.floor(Math.random() * 100);
+                spikeball.style.left = xPos + "%";
+                spikeball.style.top = yPos + "%";
+
+                setTimeout(() => {
+                spikeball.style.width = "160px";
+                spikeball.style.height = "160px";
+                }, 0.1 * 1000);
+                setTimeout(() => {
                     spikeball.style.width = "0px";
                     spikeball.style.height = "0px";
-
-                    let xPos = Math.floor(Math.random() * 100);
-                    let yPos = Math.floor(Math.random() * 100);
-                    spikeball.style.left = xPos + "%";
-                    spikeball.style.top = yPos + "%";
-
-                    gameFrame.append(spikeball);
-
-                    function changeSize() {
-                        setTimeout(() => {
-                        spikeball.style.width = "80px";
-                        spikeball.style.height = "80px";
-                        }, 20);
-                        setTimeout(() => {
-                            spikeball.style.width = "0px";
-                            spikeball.style.height = "0px";
-                        }, 2750);
-                    };
-                    changeSize();
-                    
-                    setTimeout(spikeballs, 4000);
-
-                    spikeball.onmouseenter = function() {
-                        console.log("HIT");
-                        updLives();
-                    };
+                }, 6 * 1000);
+                
+                if (spikeball) {
+                  setTimeout(changePos, 8 * 1000);  
                 };
             };
-            spikeballs();
+            changePos();
         };
     };
+
+    detectHitboxes();
 };
 
 function onSelect(threat) {
