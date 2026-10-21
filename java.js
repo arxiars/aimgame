@@ -11,6 +11,7 @@ let lives = 3;
 let targetsHit = 0;
 let baseRequirement = 5;
 let requiredHits = level * baseRequirement;
+let mouseHitCooldown = false;
 
 let gameState = "titleScreen";
 
@@ -47,10 +48,18 @@ function endGame() {
     console.log("GG");
 };
 
+function livesGracePeriod() { // a small grace period after losing a life
+    mouseHitCooldown = true;
+    setTimeout(() => {
+        mouseHitCooldown = false;
+    }, 500);
+};
+
 function updLives() {
-    if (gameState == "ingame") {
+    if (gameState == "ingame" && mouseHitCooldown === false) {
         lives--;
         livesText.textContent = "Lives: " + lives;
+        livesGracePeriod();
         flash(document.body, "rgba(255, 194, 194, 0.42)", "rgb(255, 255, 255)");
         if (lives <= 0) {
             endGame();
