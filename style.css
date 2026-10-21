@@ -74,17 +74,14 @@ button {
 }
 
 #scoreText, #livesText, #levelText {
-    margin-top: -20;
+    margin-top: -40;
     color: black;
 }
 
 #gameFrame {
-    border: 5px solid black;
-    height: auto;
-    width: 30%;
-    margin: auto;
-    aspect-ratio: 1 / 1;
-    /* background-color: rgb(128, 128, 128); */
+    border: 5px dotted black;
+    height: 75%;
+    width: 90%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -94,16 +91,39 @@ button {
 
 #shopFrame {
     border: 5px solid black;
-    height: auto;
-    width: 30%;
+    height: 70%;
+    width: 80%;
     margin: auto;
-    aspect-ratio: 1 / 1;
+    /* aspect-ratio: 1 / 1; */
     background-color: rgb(128, 128, 128);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     visibility: hidden;
+}
+
+#choice1, #choice2, #choice3 {
+    border: 4px solid black;
+    height: 200px;
+    width: 200px;
+    font-size: 40px;
+
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#choice1 {
+    left: 20%;
+}
+
+#choice2 {
+    left: 50%;
+}
+
+#choice3 {
+    left: 80%;
 }
 
 #clearText {
@@ -114,17 +134,20 @@ button {
     visibility: hidden;
 }
 
-/* div {
-    border: 5px solid black;
-} */
+div {
+    border: 5px solid red;
+}
 
-/* SPIKEBALL */
-
-#spikeball {
+.hitbox {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+/* SPIKEBALL */
+
+#spikeball {
     transition: width 2s, height 2s;
     border-radius: 9999px;
 }
@@ -158,6 +181,12 @@ button {
     from {transform: translate(-50%, -50%) rotate(0deg);}
     to {transform: translate(-50%, -50%) rotate(-360deg);}
 }
+
+/* CRUSHER */
+
+/* #crusher {
+    transition: top 2s;
+} */
 
 #bg {
     background-color: rgb(255, 255, 255);
