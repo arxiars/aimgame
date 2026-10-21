@@ -1,6 +1,6 @@
 const threats = [
-    {name: "Spikeballs", phase: 0, threatId: 1},
-    {name: "threat2", phase: 0, threatId: 2},
+    {name: "Spikeball", phase: 0, threatId: 1},
+    {name: "Crusher", phase: 0, threatId: 2},
     {name: "threat3", phase: 0, threatId: 3},
 ];
 
@@ -21,10 +21,11 @@ function activateThreats() {
         if (gameState !== "ingame") {
             return;
         };
+        let num = threatsInRound[i].threatId;
 
         // SPIKEBALL
-        if (threatsInRound[i].threatId === 1) {
-            console.log("SPIKEBALL GO");
+        if (num === 1) {
+            console.log("SPIKEBALL");
             
             let spikeball = document.createElement("div");
             spikeball.className = "hitbox";
@@ -63,6 +64,37 @@ function activateThreats() {
                 
                 if (spikeball) {
                   setTimeout(changePos, 8 * 1000);  
+                };
+            };
+            changePos();
+        };
+
+        // CRUSHER
+        if (num === 2) {
+            console.log("CRUSHER");
+
+            let crusher = document.createElement("div");
+            crusher.className = "hitbox";
+            crusher.id = "crusher";
+            crusher.style.width = "120px";
+            crusher.style.height = "360px";
+
+            gameFrame.append(crusher);
+
+            function changePos() {
+                let xPos = Math.floor(Math.random() * 100);
+                // let yPos = Math.floor(Math.random() * 100);
+                crusher.style.left = xPos + "%";
+                crusher.style.top = "-20%";
+                crusher.style.transition = "top 0s";
+
+                setTimeout(() => {
+                    crusher.style.top = "120%"
+                    crusher.style.transition = "top 1s";
+                }, 2000);
+                
+                if (crusher) {
+                  setTimeout(changePos, 4 * 1000);  
                 };
             };
             changePos();
