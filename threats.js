@@ -113,7 +113,7 @@ function onSelect(threat) {
     targetsHit = 0;
     requiredHits = level * baseRequirement;
     gameFrame.innerHTML = "";
-    startRound();
+    startRound(true);
 
     activateThreats();
 };
