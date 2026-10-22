@@ -184,9 +184,9 @@ button {
 
 /* CRUSHER */
 
-/* #crusher {
-    transition: top 2s;
-} */
+#crusher {
+    background-color: rgb(116, 70, 70);
+}
 
 #bg {
     background-color: rgb(255, 255, 255);
