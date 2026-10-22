@@ -51,7 +51,7 @@ button {
 
 #scoreText {
     position: absolute;
-    top: 11%;
+    top: 9.5%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 50;
@@ -59,7 +59,7 @@ button {
 
 #levelText {
     position: fixed;
-    top: 10%;
+    top: 9%;
     left: 10%;
     transform: translate(-50%, -50%);
     font-size: 25;
@@ -67,7 +67,7 @@ button {
 
 #livesText {
     position: absolute;
-    top: 10%;
+    top: 9%;
     left: 90%;
     transform: translate(-50%, -50%);
     font-size: 25;
@@ -80,10 +80,10 @@ button {
 
 #gameFrame {
     border: 5px dotted black;
-    height: 75%;
-    width: 90%;
+    height: 85%;
+    width: 95%;
     position: absolute;
-    top: 50%;
+    top: 53%;
     left: 50%;
     transform: translate(-50%, -50%);
     visibility: hidden;
@@ -134,9 +134,9 @@ button {
     visibility: hidden;
 }
 
-div {
+/* div {
     border: 5px solid red;
-}
+} */
 
 .hitbox {
     position: absolute;
